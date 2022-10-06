@@ -15,18 +15,15 @@ import frc.robot.subsystems.Drive;
 
 public class Robot extends TimedRobot {
 
-	XboxController controller = new XboxController(0);
-	Joystick rightJoystick = new Joystick(0);
-	Joystick leftJoystick = new Joystick(1);
+	private static Joystick mDriveStick = new Joystick(Constants.kDriveStickPort);
+	private static Joystick mTurnStick = new Joystick(Constants.kTurnStickPort);
 
 	Looper mEnabledLooper = new Looper();
 	Looper mDisabledLooper = new Looper();
 	
 	private final SubsystemManager mSubsystemManager = SubsystemManager.getInstance();
 
-	private Drive mDrive;
-	
-	private Joystick mDriveStick;
+	public static Drive mDrive;
 
 	@Override
 	public void robotInit() {
@@ -35,6 +32,7 @@ public class Robot extends TimedRobot {
 		mSubsystemManager.setSubsystems(mDrive);
 
 		mDriveStick = new Joystick(Constants.kDriveStickPort);
+		mTurnStick = new Joystick(Constants.kTurnStickPort);
 
 		mSubsystemManager.registerEnabledLoops(mEnabledLooper);
 		mSubsystemManager.registerDisabledLoops(mDisabledLooper);
@@ -61,7 +59,8 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void teleopPeriodic() {
-		//mDrive.setCheesyishDrive(mThrottleStick.getRawAxis(1), -mTurnStick.getRawAxis(0), mTurnStick.getRawButton(1));
-		mDrive.setCheesyishDrive(mDriveStick.getRawAxis(1), -mDriveStick.getRawAxis(4), mDriveStick.getRawButton(1));
+
+        mDrive.tankDrive(-mDriveStick.getY(), mTurnStick.getX());
+
 	}
 }

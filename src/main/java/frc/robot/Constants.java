@@ -22,7 +22,7 @@ public class Constants {
 
     // Joysticks
     public static final int kDriveStickPort = 0;
-
+    public static final int kTurnStickPort = 1;
 
     // Flywheel
     public static final int kFlywheelMasterId = 4;
@@ -42,4 +42,5 @@ public class Constants {
     public static final int kIntakeRightTalonId = 8;
     public static final int kIntakeCloseSolenoidId = 2;
     public static final int kIntakeClampSolenoidId = 3;
+
 }
