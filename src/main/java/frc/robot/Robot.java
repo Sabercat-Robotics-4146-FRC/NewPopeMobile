@@ -9,13 +9,19 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.loops.Looper;
 import frc.robot.subsystems.Drive;
 
 public class Robot extends TimedRobot {
+
+	XboxController controller = new XboxController(0);
+	Joystick rightJoystick = new Joystick(0);
+	Joystick leftJoystick = new Joystick(1);
+
 	Looper mEnabledLooper = new Looper();
 	Looper mDisabledLooper = new Looper();
-
+	
 	private final SubsystemManager mSubsystemManager = SubsystemManager.getInstance();
 
 	private Drive mDrive;
@@ -24,6 +30,7 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void robotInit() {
+
 		mDrive = Drive.getInstance();
 		mSubsystemManager.setSubsystems(mDrive);
 
@@ -31,6 +38,7 @@ public class Robot extends TimedRobot {
 
 		mSubsystemManager.registerEnabledLoops(mEnabledLooper);
 		mSubsystemManager.registerDisabledLoops(mDisabledLooper);
+		
 	}
 
 	@Override
