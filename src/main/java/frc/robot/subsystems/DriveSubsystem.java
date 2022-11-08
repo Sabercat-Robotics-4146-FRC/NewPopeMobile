@@ -7,7 +7,6 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
 
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -20,14 +19,12 @@ public class DriveSubsystem extends SubsystemBase {
   public TalonSRX rightBack;
   public TalonSRX leftBack;
 
-  /** Creates a new ExampleSubsystem. */
   public DriveSubsystem() {
     rightFront = new TalonSRX(DriveConstants.rightFrontID);
     leftFront = new TalonSRX(DriveConstants.leftFrontID);
     leftBack = new TalonSRX(DriveConstants.leftBackID);
     rightBack = new TalonSRX(DriveConstants.rightBackID);
 
-    
     rightFront.setInverted(InvertType.InvertMotorOutput);
     rightBack.setInverted(InvertType.InvertMotorOutput);
     leftBack.set(ControlMode.Follower, 3);
@@ -44,17 +41,11 @@ public class DriveSubsystem extends SubsystemBase {
 
   }
 
+  public void drive(double leftY, double rotation){ //rotation = rightX on joystick
 
+    rightFront.set(ControlMode.PercentOutput, leftY + rotation);
+    leftFront.set(ControlMode.PercentOutput, leftY - rotation);
 
-  public void drive(double leftX, double leftY, double rotation){ //rotation = rightX on joystick
-    
-    rightFront.set(ControlMode.PercentOutput, leftX + leftY);
-    leftFront.set(ControlMode.PercentOutput, -leftX + leftY);
-
-    if(rotation > 0){
-      leftFront.set(ControlMode.PercentOutput, Math.abs(rotation));
-      leftBack.set(ControlMode.PercentOutput, Math.abs(rotation));
-    }
   }
 
   @Override

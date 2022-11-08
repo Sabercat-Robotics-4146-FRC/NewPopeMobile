@@ -19,5 +19,4 @@ public final class Constants {
         static public int rightBackID = 2;
         static public int leftBackID = 4;
     }
-
 }
