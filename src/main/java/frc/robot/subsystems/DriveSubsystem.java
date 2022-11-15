@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
 
@@ -38,7 +39,8 @@ public class DriveSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-
+    SmartDashboard.putNumber("Right Motor Output", rightFront.getMotorOutputPercent());
+    SmartDashboard.putNumber("Left Motor Output", leftFront.getMotorOutputPercent());
   }
 
   public void drive(double leftY, double rotation){ //rotation = rightX on joystick
@@ -47,6 +49,7 @@ public class DriveSubsystem extends SubsystemBase {
     leftFront.set(ControlMode.PercentOutput, leftY - rotation);
 
   }
+
 
   @Override
   public void simulationPeriodic() {
