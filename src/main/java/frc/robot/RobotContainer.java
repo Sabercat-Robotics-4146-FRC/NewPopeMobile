@@ -9,6 +9,8 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.IntakeToggle;
+import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -28,7 +30,10 @@ public class RobotContainer {
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final DriveSubsystem _DriveSubsystem = new DriveSubsystem();
 
+  private final ArmSubsystem _ArmSubsystem = new ArmSubsystem();
+
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  
 
   
 
@@ -37,10 +42,14 @@ public class RobotContainer {
 
     XboxController joystick = new XboxController(0);
 
-    ArcadeDrive _ArcadeDrive = new ArcadeDrive(_DriveSubsystem, joystick.getLeftY(), joystick.getRawAxis(4));
+    ArcadeDrive _ArcadeDrive = new ArcadeDrive(_DriveSubsystem, joystick::getLeftY, joystick::getRightX);
+    IntakeToggle _IntakeToggle = new IntakeToggle(_ArmSubsystem, joystick::getAButton);
 
-    CommandScheduler.getInstance().registerSubsystem(_DriveSubsystem);
+    _DriveSubsystem.setDefaultCommand(_ArcadeDrive);
     CommandScheduler.getInstance().setDefaultCommand(_DriveSubsystem, _ArcadeDrive);
+
+    _ArmSubsystem.setDefaultCommand(_IntakeToggle);
+    CommandScheduler.getInstance().setDefaultCommand(_ArmSubsystem, _IntakeToggle);
 
     configureButtonBindings();
   }

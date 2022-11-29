@@ -19,4 +19,9 @@ public final class Constants {
         static public int rightBackID = 2;
         static public int leftBackID = 4;
     }
+
+    public static final class ArmConstants{
+        static public int armPivotID = 7;
+        static public int armUpperID = 6;
+    }
 }

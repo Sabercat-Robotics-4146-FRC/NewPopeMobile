@@ -35,19 +35,21 @@ public class DriveSubsystem extends SubsystemBase {
     rightBack.setNeutralMode(NeutralMode.Brake);
     leftFront.setNeutralMode(NeutralMode.Brake);
     leftBack.setNeutralMode(NeutralMode.Brake);
+
   }
 
   @Override
   public void periodic() {
     SmartDashboard.putNumber("Right Motor Output", rightFront.getMotorOutputPercent());
     SmartDashboard.putNumber("Left Motor Output", leftFront.getMotorOutputPercent());
+
   }
 
-  public void drive(double leftY, double rotation){ //rotation = rightX on joystick
+  public void drive(Double leftY, Double rotation){ //rotation = rightX on joystick
 
     rightFront.set(ControlMode.PercentOutput, leftY + rotation);
     leftFront.set(ControlMode.PercentOutput, leftY - rotation);
-
+    
   }
 
 

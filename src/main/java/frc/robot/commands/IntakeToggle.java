@@ -4,38 +4,38 @@
 
 package frc.robot.commands;
 
+import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 
+import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 
-public class ArcadeDrive extends CommandBase {
+public class IntakeToggle extends CommandBase {
   
-  private final DriveSubsystem _DriveSubsystem; //specific subsystem reference
+  private final ArmSubsystem _ArmSubsystem; //specific subsystem reference
 
-  DoubleSupplier _lefty;
-  DoubleSupplier _rotation;
+  BooleanSupplier _intakeState;
 
-  public ArcadeDrive(DriveSubsystem subsystem, DoubleSupplier lefty, DoubleSupplier rotation) {
-    _DriveSubsystem = subsystem;
+  public IntakeToggle(ArmSubsystem subsystem, BooleanSupplier intakeState) {
+    _ArmSubsystem = subsystem;
 
-    _lefty = lefty;
-    _rotation = rotation;
+    _intakeState = intakeState;
 
     addRequirements(subsystem);
   }
 
   @Override
   public void execute() {
-    _DriveSubsystem.drive(_lefty.getAsDouble(), _rotation.getAsDouble());
+    _ArmSubsystem.toggleIntake(_intakeState.getAsBoolean());
   }
 
   @Override
   public void end(boolean interrupted) {
-    _DriveSubsystem.drive(0.0, 0.0);
+    _ArmSubsystem.toggleIntake(false);
   }
 
   @Override
